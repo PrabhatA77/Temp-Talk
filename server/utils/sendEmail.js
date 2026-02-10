@@ -21,10 +21,10 @@ export const sendMail = async (to,subject,html)=>{
     }
 } 
 
-export const sendWelcomeEmail = async (toEmail)=>{
+export const sendWelcomeEmail = async (toEmail,name)=>{
     return sendMail(
         toEmail,
         "Welcome to Temp-Talk",
-        welcomeEmail
+        welcomeEmail(name)
     )
 }

@@ -79,6 +79,30 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
+export const resendOtp = async (req,res) =>{
+  try {
+    const user = await User.findOne({email:req.body.email});
+
+    if(!user){
+      return res.status(404).json({message:"User not found"})
+    }
+
+    const newCode = generateOtp();
+    user.verificationToken = newCode;
+    user.verificationTokenExpiresAt = Date.now() + 10*60*60*1000;
+
+    await user.save();
+
+    const emailMessage = otpEmailTemplate(newCode);
+    await sendMail(user.email,"Your new OTP code",emailMessage);
+
+    return res.status(200).json({message:"Reset Otp send successfully"})
+  } catch (error) {
+    console.error("resend otp error : ",error.message);
+    return res.status(500).json({message:"server error"});
+  }
+}
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
