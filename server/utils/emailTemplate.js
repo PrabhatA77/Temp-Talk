@@ -74,7 +74,7 @@ export const passwordResetTemplate = (name, resetLink) => `
       <!-- Header -->
       <tr>
         <td style="background:linear-gradient(90deg,#4b6aff,#6ae8c5); padding:24px; text-align:center;">
-          <h2 style="margin:0; color:#fff; font-size:24px;">VibeChat Password Reset</h2>
+          <h2 style="margin:0; color:#fff; font-size:24px;">Temp-Talk Password Reset</h2>
         </td>
       </tr>
 
@@ -85,7 +85,7 @@ export const passwordResetTemplate = (name, resetLink) => `
           <p style="color:#444; font-size:15px; margin:0 0 20px;">
             Hi <strong>${name}</strong>,  
             <br><br>
-            We received a request to reset your VibeChat password.
+            We received a request to reset your Temp-Talk password.
             <br>
             Click the button below to set a new password.
           </p>
@@ -118,7 +118,7 @@ export const passwordResetTemplate = (name, resetLink) => `
       <!-- Footer -->
       <tr>
         <td style="background:#f8faff; padding:15px; text-align:center; font-size:12px; color:#888;">
-          © 2025 VibeChat — All Rights Reserved
+          © 2025 Temp-Talk — All Rights Reserved
         </td>
       </tr>
 
@@ -141,7 +141,7 @@ export const welcomeEmail = (name)=>{
       <tr>
         <td style="background:linear-gradient(90deg,#4b6aff,#6ae8c5); padding:28px; text-align:center;">
           <h2 style="margin:0; color:#fff; font-size:26px; font-weight:700;">
-            Welcome to VibeChat 🎉
+            Welcome to Temp-Talk 🎉
           </h2>
         </td>
       </tr>
@@ -155,7 +155,7 @@ export const welcomeEmail = (name)=>{
           </p>
 
           <p style="color:#4a4a4a; font-size:15px; line-height:1.6; margin:0 0 20px;">
-            We're excited to have you on VibeChat!  
+            We're excited to have you on Temp-Talk!  
             Your account has been successfully created, and you're all set to start chatting, connecting, and vibing with people around the world.
           </p>
 
@@ -184,7 +184,7 @@ export const welcomeEmail = (name)=>{
       <!-- Footer -->
       <tr>
         <td style="background:#f8faff; padding:15px; text-align:center; font-size:12px; color:#888;">
-          © 2025 VibeChat — All Rights Reserved
+          © 2025 Temp-Talk — All Rights Reserved
         </td>
       </tr>
 

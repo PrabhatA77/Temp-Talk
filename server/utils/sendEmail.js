@@ -1,5 +1,5 @@
 import sgMail from "@sendgrid/mail";
-import { welcomeEmail } from "./emailTemplate.js";
+import { passwordResetTemplate, welcomeEmail } from "./emailTemplate.js";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -26,5 +26,13 @@ export const sendWelcomeEmail = async (toEmail,name)=>{
         toEmail,
         "Welcome to Temp-Talk",
         welcomeEmail(name)
+    )
+}
+
+export const sendForgotpasswordEmail = async (toEmail,name,resetLink)=>{
+    return sendMail(
+        toEmail,
+        "Password Reset",
+        passwordResetTemplate(name,resetLink)
     )
 }

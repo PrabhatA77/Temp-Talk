@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { generateOtp } from "../utils/generateOtp.js";
 import { otpEmailTemplate } from "../utils/emailTemplate.js";
-import { sendMail,sendWelcomeEmail } from "../utils/sendEmail.js";
+import { sendMail,sendForgotpasswordEmail,sendWelcomeEmail } from "../utils/sendEmail.js";
 import User from "../models/User.js";
 
 
@@ -163,3 +163,76 @@ export const logout = async (req,res)=>{
     res.clearCookie("token");
     res.status(200).json({message:'Logged out successfully'});
 };
+
+export const forgotPassword = async (req,res)=>{
+  try {
+    const {email} = req.body;
+    if(!email){
+      return res.status(400).json({message:"Please enter valid email"})
+    }
+
+    const user = await User.findOne({email});
+
+    if(!user){
+      return res.status(400).json({message:"User not found"});
+    }
+
+    const resetToken = crypto.randomBytes(32).toString("hex");
+
+    const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordTokenExpiresAt = Date.now() + 15*60*1000; // 15 minutes
+    
+    await user.save();
+
+    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+
+    sendForgotpasswordEmail(user.email,user.name,resetUrl);
+
+    return res.status(200).json({message:"Reset link sent to email"});
+
+  } catch (error) {
+    console.error("forgot password error : ",error.message);
+    return res.status(500).json({message:"Server error"});
+  }
+}
+
+export const resetPassword = async (req,res)=>{
+  try {
+    const {token} = req.params;
+    const {password} = req.body;
+
+    if(!password){
+      return res.status(400).json({message:"All fields required"});
+    }
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken:hashedToken,
+      resetPasswordTokenExpiresAt:{$gt:Date.now()}
+    });
+
+    if(!user){
+      return res.status(400).json({message:"Invalid or Expired Token"});
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const newPassword = await bcrypt.hash(password,salt);
+
+    user.password = newPassword;
+
+    user.resetPasswordToken = undefined;
+    user.resetPasswordTokenExpiresAt = undefined;
+
+    await user.save();
+
+    return res.status(200).json({message:"Password Reset Successful"});
+  } catch (error) {
+    console.error("reset password error : ",error.message);
+    return res.status(500).json({message:"Server error"});
+  }
+  
+
+
+}
