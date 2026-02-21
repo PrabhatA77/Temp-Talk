@@ -4,6 +4,8 @@ import { forgotPasswordLimiter, loginLimiter, otpLimiter, signupLimiter } from '
 
 const router = express.Router();
 
+router.post("google-login",googleLogin);
+
 router.post('/signup',signupLimiter,signup);
 router.post('/login',loginLimiter,login);
 router.post('/logout',logout);
