@@ -1,5 +1,5 @@
 import express from 'express';
-import {signup, verifyEmail, login, logout, resendOtp, forgotPassword, resetPassword} from '../controllers/authController.js';
+import {signup, verifyEmail, login, logout, resendOtp, forgotPassword, resetPassword,googleLogin, getMe} from '../controllers/authController.js';
 import { forgotPasswordLimiter, loginLimiter, otpLimiter, signupLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
@@ -15,5 +15,7 @@ router.post('/verify-email',otpLimiter,verifyEmail);
 
 router.post('/forgot-password',forgotPasswordLimiter,forgotPassword);
 router.post('/reset-password/:token',resetPassword);
+
+router.get("/me",getMe);
 
 export default router;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import convo from "../assets/convo.png"
 import react from "../assets/react.png"
 import node from "../assets/node.png"
@@ -8,6 +9,7 @@ import padlock from "../assets/padlock.png"
 import theme from "../assets/theme.png"
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <div className='bg-linear-to-b from-[#1F5731] to-[#091615]
  min-h-screen text-white'>
@@ -28,8 +30,8 @@ const LandingPage = () => {
             </div>
 
             <div className='flex items-center gap-4 text-sm'>
-                <div className='hover:text-emerald-400 transition cursor-pointer'>Login</div>
-                <div className='bg-emerald-500 px-5 py-2 rounded-md hover:bg-emerald-600 transition shadow shadow-emerald-500/30 cursor-pointer'>Get Started</div>
+                <div onClick={() => navigate('/signup')} className='hover:text-emerald-400 transition cursor-pointer'>Login</div>
+                <div onClick={() => navigate('/signup')} className='bg-emerald-500 px-5 py-2 rounded-md hover:bg-emerald-600 transition shadow shadow-emerald-500/30 cursor-pointer'>Get Started</div>
             </div>
         </nav>
 
