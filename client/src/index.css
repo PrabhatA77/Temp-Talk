@@ -6,3 +6,17 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+/* making the loading bar emerald green with a glow */
+#nprogress .bar{
+  background : #34d399 !important;
+}
+
+#nprogress .peg{
+  box-shadow: 0 0 10px #34d399, 0 0 5px #34d399 !important;
+}
+
+#nprogress .spinner-icon{
+  border-top-color: #34d399 !important;
+  border-left-color: #34d399 !important;
+}

@@ -1,6 +1,6 @@
 import React, { Children, createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext();
-import axios from "axios";
+import axios from "../lib/axios.js";
 import { Await } from 'react-router-dom';
 
 export const AuthProvider = ({children})=>{
@@ -26,7 +26,7 @@ export const AuthProvider = ({children})=>{
     const checkAuth = async ()=>{
         try {
             const res = await axios.get(
-                "http://localhost:5000/api/auth/me",
+                "http://localhost:3000/api/auth/me",
                 { withCredentials: true }
             );
             setUser(res.data.user);
